@@ -5,9 +5,9 @@
 #define MAX_BUFF 20
 
 struct Poly{
-    int *a; // °è¼ö ÀúÀå ¹è¿­
-    int *x; // Â÷¼ö ÀÎµ¦½º
-    int n; // Ç×ÀÇ °¹¼ö
+    int *a; // ê³„ìˆ˜ ì €ìž¥ ë°°ì—´
+    int *x; // ì°¨ìˆ˜ ì¸ë±ìŠ¤
+    int n; // í•­ì˜ ê°¯ìˆ˜
     // 5x^4 - 4x^2 +5
     // => n[0] = 4, n[1] = 2, n[2] = 0
     // => a[0] = 5, a[1] = -4, a[3] = 5
@@ -22,6 +22,21 @@ void AUX(Poly a, Poly b, Poly* res, int s){
     res->n = 0;
 
     while( i<a.n || k<b.n ){
+        if(i==a.n){  // aëŠ” ëŒ€ê¸°, bë§Œ ë‚¨ì€ ìƒíƒœ
+            res->x[t] = b.x[k];
+            res->a[t] = b.a[k]*s;
+            k++;
+            t++;
+            res->n=t;
+            continue;
+        } else if(i==b.n){ // bëŠ” ëŒ€ê¸°, aë§Œ ë‚¨ì€ ìƒíƒœ
+            res->x[t] = a.x[i];
+            res->a[t] = a.a[i];
+            i++;
+            t++;
+            res->n=t;
+            continue;
+        }
         if(a.x[i]==b.x[k]){
             res->x[t] = a.x[i];
             res->a[t] = a.a[i]+b.a[k]*s;
