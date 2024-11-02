@@ -5,7 +5,7 @@
 #define MAX_BUFF 20
 
 struct Poly{
-    int *a; // °è¼ö ÀúÀå ¹è¿­
+    int *a; // ê³„ìˆ˜ ì €ìž¥ ë°°ì—´
 };
 typedef struct Poly Poly;
 
@@ -44,19 +44,19 @@ void PolyMake(Poly* a, int n){
     
     a->a = (int*)malloc(sizeof(int)*MAX_BUFF);
 
-    // ¹è¿­ ÃÊ±âÈ­
+    // ë°°ì—´ ì´ˆê¸°í™”
     for (int i = 0; i < MAX_BUFF; i++) {
-        a->a[i] = 0; // ³ª¸ÓÁö´Â 0À¸·Î ÃÊ±âÈ­
+        a->a[i] = 0; // ë‚˜ë¨¸ì§€ëŠ” 0ìœ¼ë¡œ ì´ˆê¸°í™”
     }
 
-    // ·£´ý °ª ÇÒ´ç
+    // ëžœë¤ ê°’ í• ë‹¹
     for (int i = 0; i < size; i++) {
         int index;
         do {
-            index = rand() % MAX_BUFF; // 0ºÎÅÍ size-1±îÁöÀÇ ·£´ý ÀÎµ¦½º
-        } while (a->a[index] != 0); // ÀÌ¹Ì °ªÀÌ ÇÒ´çµÈ ÀÎµ¦½º´Â ¹«½Ã
+            index = rand() % MAX_BUFF; // 0ë¶€í„° size-1ê¹Œì§€ì˜ ëžœë¤ ì¸ë±ìŠ¤
+        } while (a->a[index] != 0); // ì´ë¯¸ ê°’ì´ í• ë‹¹ëœ ì¸ë±ìŠ¤ëŠ” ë¬´ì‹œ
 
-        a->a[index] = (rand() % 10 + 1)*YN(); // 1ºÎÅÍ 10±îÁöÀÇ ·£´ý °ª
+        a->a[index] = (rand() % 10 + 1)*YN(); // 1ë¶€í„° 10ê¹Œì§€ì˜ ëžœë¤ ê°’
     }
 }
 
