@@ -2,25 +2,6 @@
 #include <stdlib.h>
 #include "array_poly.h"
 
-/*-------- 추가한 부분1 --------- */
-#include <time.h>
-void test_randArrayPoly(ArrayPoly *a, int max){
-    int count = 0;
-    int index = 0;
-    while(count != max){
-        index = rand() % (a->deg+1);
-        if(a->coef[index] == 0 ){
-            int i=0;
-            while(i==0){
-                i = (rand() % 21) - 10;
-            }
-            a->coef[index] = i;
-            count++;
-        }
-    }
-}
-/*------------------------------ */
-
 static inline int __imax2(int a, int b)
 {
 	return a > b ? a : b;
@@ -72,21 +53,19 @@ void printArrayPoly(ArrayPoly *a){
 static ArrayPoly *__addArrayPoly(ArrayPoly *a, ArrayPoly *b, int sign) {
     ArrayPoly *res = createArrayPoly(__imax2(a->deg, b->deg));
 
-    // 추가1
-    clock_t start = clock(); 
-    //-----
+    int count = 0;
+    for (int i = 0; i <= a->deg; i++){
+        res->coef[i] += a->coef[i]; 
+        count++;
+    }
+    printf("\nArrayPoly C 에 ArrayPoly a를 할당하기 위한 반복 횟수 : %d회", count);
 
-    for (int i = 0; i <= a->deg; i++)
-        res->coef[i] += a->coef[i];
-
-    for (int i = 0; i <= b->deg; i++)
-	    res->coef[i] += sign * b->coef[i];
-
-    // 추가2
-    clock_t end = clock();
-    double t = (double)(end - start) / CLOCKS_PER_SEC;
-    printf("\n경과 시간 : %lf\n", t);
-    //-------
+    count = 0;
+    for (int i = 0; i <= b->deg; i++){
+	    res->coef[i] += sign * b->coef[i]; 
+        count++;
+    }
+    printf("\nArrayPoly C 에 ArrayPoly b를 가감연산 하기 위한 반복 횟수 : %d회\n", count);
 
     return res;
 }
