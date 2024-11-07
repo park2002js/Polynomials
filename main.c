@@ -6,24 +6,27 @@
 int main(){
     srand(time(NULL));
 
-    ArrayPoly *a = createArrayPoly(2);
-    ArrayPoly *b = createArrayPoly(5);
+    ArrayPoly *a = createArrayPoly(100000);
+    ArrayPoly *b = createArrayPoly(1500000);
 
-    randArrayPoly(a);
+    test_randArrayPoly(a,5);
+    // randArrayPoly(a);
     printf("f(x) = ");
     printArrayPoly(a);
 
-    randArrayPoly(b);
+    test_randArrayPoly(b,5);
+    //randArrayPoly(b);
     printf("g(x) = ");
     printArrayPoly(b);
 
-
-    printf("f(x) + g(x) = ");
+   
     ArrayPoly *c = addArrayPoly(a, b);
+    printf("f(x) + g(x) = ");
     printArrayPoly(c);
 
-    printf("f(x) - g(x) = ");
+    
     ArrayPoly *d = subArrayPoly(a, b);
+    printf("f(x) - g(x) = ");
     printArrayPoly(d);
 
     freeArrayPoly(a);
