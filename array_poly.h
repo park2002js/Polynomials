@@ -10,7 +10,7 @@ ArrayPoly* createArrayPoly(int);
 void freeArrayPoly(ArrayPoly*);
 void randArrayPoly(ArrayPoly*);
 void printArrayPoly(ArrayPoly*);
-ArrayPoly* addArrayPoly(ArrayPoly*, ArrayPoly*);
-ArrayPoly* subArrayPoly(ArrayPoly*, ArrayPoly*);
+ArrayPoly* addArrayPoly(ArrayPoly*, ArrayPoly*, int*);
+ArrayPoly* subArrayPoly(ArrayPoly*, ArrayPoly*, int*);
 
 #endif

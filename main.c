@@ -1,49 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "array_poly.h"
 
-/*-------- 추가한 부분 --------- */
-void test_ArrayPoly_A(ArrayPoly *a){
-    int coef[] = {1,-2,3,-4,5};
-    for(int i=0; i< 5 ; i++ ){
-        a->coef[i] = coef[i];
-    }
-}
-
-void test_ArrayPoly_B(ArrayPoly *a){
-    int coef[] = {5,-3,2,-1,4};
-    for(int i=0; i< 5 ; i++ ){
-        a->coef[i] = coef[i];
-    }
-}
-/*------------------------------ */
-
 int main(){
-    srand(time(NULL));
+    ArrayPoly *a = createArrayPoly(1000000);
+    ArrayPoly *b = createArrayPoly(1000000);
 
-    ArrayPoly *a = createArrayPoly(100000);
-    ArrayPoly *b = createArrayPoly(1500000);
+    // assigning coefficients.
+    a->coef[1000000] = 5;
+    a->coef[50000] = -3;
+    a->coef[25000] = 2;
+    a->coef[100] = -1;
+    a->coef[0] = 4;
+    b->coef[1000000] = 1;
+    b->coef[999999] = -2;
+    b->coef[1000] = 3;
+    b->coef[999] = -4;
+    b->coef[0] = 5;
 
-    test_ArrayPoly_A(a);
-    // randArrayPoly(a);
     printf("f(x) = ");
     printArrayPoly(a);
+    puts("");
 
-    test_ArrayPoly_B(b);
-    //randArrayPoly(b);
     printf("g(x) = ");
     printArrayPoly(b);
+    puts("");
 
-   
-    ArrayPoly *c = addArrayPoly(a, b);
+    int status;
+    ArrayPoly *c = addArrayPoly(a, b, &status);
     printf("f(x) + g(x) = ");
     printArrayPoly(c);
+    printf("%d iteration(s)\n\n", status);
 
-    
-    ArrayPoly *d = subArrayPoly(a, b);
+    ArrayPoly *d = subArrayPoly(a, b, &status);
     printf("f(x) - g(x) = ");
     printArrayPoly(d);
+    printf("%d iteration(s)\n\n", status);
 
     freeArrayPoly(a);
     freeArrayPoly(b);
