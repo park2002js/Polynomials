@@ -4,12 +4,12 @@
 
 static inline int __imax2(int a, int b)
 {
-	return a > b ? a : b;
+    return a > b ? a : b;
 }
 
 static inline int __iabs(int a)
 {
-	return a < 0 ? -a : a;
+    return a < 0 ? -a : a;
 }
 
 ArrayPoly *createArrayPoly(int deg) {
@@ -50,30 +50,29 @@ void printArrayPoly(ArrayPoly *a){
 }
 
 // helper function for addition/subtraction operations on ArrayPoly structs.
-static ArrayPoly *__addArrayPoly(ArrayPoly *a, ArrayPoly *b, int sign) {
+static ArrayPoly *__addArrayPoly(ArrayPoly *a, ArrayPoly *b, int sign, int *status) {
     ArrayPoly *res = createArrayPoly(__imax2(a->deg, b->deg));
+    int cnt = 0;
 
-    int count = 0;
-    for (int i = 0; i <= a->deg; i++){
+    for (int i = 0; i <= a->deg; i++) {
         res->coef[i] += a->coef[i]; 
-        count++;
+        cnt++;
     }
-    printf("\nArrayPoly C 에 ArrayPoly a를 할당하기 위한 반복 횟수 : %d회", count);
 
-    count = 0;
-    for (int i = 0; i <= b->deg; i++){
+    for (int i = 0; i <= b->deg; i++) {
 	    res->coef[i] += sign * b->coef[i]; 
-        count++;
+        cnt++;
     }
-    printf("\nArrayPoly C 에 ArrayPoly b를 가감연산 하기 위한 반복 횟수 : %d회\n", count);
 
+    if (status)
+        *status = cnt;
     return res;
 }
 
-ArrayPoly *addArrayPoly(ArrayPoly *a, ArrayPoly *b) {
-	return __addArrayPoly(a, b, 1);
+ArrayPoly *addArrayPoly(ArrayPoly *a, ArrayPoly *b, int *status) {
+    return __addArrayPoly(a, b, 1, status);
 }
 
-ArrayPoly *subArrayPoly(ArrayPoly *a, ArrayPoly *b) {
-	return __addArrayPoly(a, b, -1);
+ArrayPoly *subArrayPoly(ArrayPoly *a, ArrayPoly *b, int *status) {
+    return __addArrayPoly(a, b, -1, status);
 }
