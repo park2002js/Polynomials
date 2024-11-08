@@ -55,12 +55,12 @@ void printPoly(Poly *poly) {
 void freePoly(Poly *poly) {
     Term *current = poly->first;
     Term *temp;
-
     while (current != NULL) {
         temp = current;
         current = current->next;
         free(temp);
     }
+    free(poly);
 }
 
 // helper function for addition/subtraction operations on Poly structs.
