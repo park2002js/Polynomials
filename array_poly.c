@@ -34,7 +34,6 @@ void printArrayPoly(ArrayPoly *a)  {
 	} else
             printf(" %c %dx^%d", a->coef[i] > 0 ? '+' : '-', iabs(a->coef[i]), i);
     }
-
     puts("");
 }
 
