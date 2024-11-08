@@ -34,7 +34,8 @@ void printArrayPoly(ArrayPoly *a)  {
 	} else
             printf(" %c %dx^%d", a->coef[i] > 0 ? '+' : '-', iabs(a->coef[i]), i);
     }
-    puts("");
+    
+    puts(first ? "0" : "");
 }
 
 // helper function for addition/subtraction operations on ArrayPoly structs.
