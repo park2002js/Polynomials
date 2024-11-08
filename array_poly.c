@@ -1,16 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "array_poly.h"
-
-static inline int __imax2(int a, int b)
-{
-    return a > b ? a : b;
-}
-
-static inline int __iabs(int a)
-{
-    return a < 0 ? -a : a;
-}
+#include "util.h"
 
 ArrayPoly *createArrayPoly(int deg) {
     ArrayPoly *a = (ArrayPoly*) malloc(sizeof(ArrayPoly));
@@ -30,9 +21,7 @@ void randArrayPoly(ArrayPoly *a) {
         a->coef[i] = (rand() % 21) - 10; // randomized values are within [-10, 10].
 }
 
-
-
-void printArrayPoly(ArrayPoly *a){
+void printArrayPoly(ArrayPoly *a)  {
     int first = 1;
 
     for (int i = a->deg; i>=0; i--) {
@@ -43,15 +32,15 @@ void printArrayPoly(ArrayPoly *a){
 	    printf("%dx^%d", a->coef[i], i);
 	    first = 0;
 	} else
-            printf(" %c %dx^%d", a->coef[i] > 0 ? '+' : '-', __iabs(a->coef[i]), i);
+            printf(" %c %dx^%d", a->coef[i] > 0 ? '+' : '-', iabs(a->coef[i]), i);
     }
-
-    puts("");
+    
+    puts(first ? "0" : "");
 }
 
 // helper function for addition/subtraction operations on ArrayPoly structs.
 static ArrayPoly *__addArrayPoly(ArrayPoly *a, ArrayPoly *b, int sign, int *status) {
-    ArrayPoly *res = createArrayPoly(__imax2(a->deg, b->deg));
+    ArrayPoly *res = createArrayPoly(imax2(a->deg, b->deg));
     int cnt = 0;
 
     for (int i = 0; i <= a->deg; i++) {
@@ -60,10 +49,11 @@ static ArrayPoly *__addArrayPoly(ArrayPoly *a, ArrayPoly *b, int sign, int *stat
     }
 
     for (int i = 0; i <= b->deg; i++) {
-	    res->coef[i] += sign * b->coef[i]; 
+	res->coef[i] += sign * b->coef[i];
         cnt++;
     }
 
+    // only save the count if the status variable is non-null.
     if (status)
         *status = cnt;
     return res;
